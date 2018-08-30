@@ -27,6 +27,8 @@ const _getGithubState = async ({platform}) => {
         return 'exokit-macos-x64.dmg';
       case 'linux':
         return 'exokit-linux-bin.tar.gz';
+      case 'magicleap':
+        return 'exokit.mpk';
       default:
         return null;
     }
@@ -84,6 +86,8 @@ async function handleRequest(request) {
     return await _serveLinuxScript(await _getGithubState({platform: 'linux'}));
   } else if (pathname === '/linux-bin') {
     return await _serveGithubState(await _getGithubState({platform: 'linux'}));
+  } else if (pathname === '/magicleap') {
+    return await _serveGithubState(await _getGithubState({platform: 'magicleap'}));
   } else { 
     const userAgent = request.headers.get('User-Agent');
     const match = userAgent.match(/\(.*?(win|mac|linux).*?\)/i);
