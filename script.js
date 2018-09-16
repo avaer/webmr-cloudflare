@@ -62,7 +62,7 @@ const _serveGithubState = async githubState => {
 };
 const _serveLinuxScript = async githubState => {
   const {latestVersion} = githubState;
-  const proxyResponse = await fetch(`https://raw.githubusercontent.com/webmixedreality/exokit/master/exokit-install.sh`);
+  const proxyResponse = await fetch(`https://raw.githubusercontent.com/webmixedreality/exokit/master/scripts/exokit-install.sh`);
   const script = await proxyResponse.text();
   const scriptCompiled = script.replace(/\$VERSION/g, latestVersion);
   const response = new Response(scriptCompiled, {
