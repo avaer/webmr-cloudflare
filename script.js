@@ -70,6 +70,13 @@ const _serveLinuxScript = async githubState => {
   });
   return response;
 };
+const _serveVersion = async githubState => {
+  const {latestVersion: version} = githubState;
+  const response = new Response(JSON.stringify({version}), {
+    'Content-Type': 'application/json',
+  });
+  return response;
+};
 
 async function handleRequest(request) {
   console.log('Got request', request);
@@ -88,6 +95,8 @@ async function handleRequest(request) {
     return await _serveGithubState(await _getGithubState({platform: 'linux'}));
   } else if (pathname === '/magicleap') {
     return await _serveGithubState(await _getGithubState({platform: 'magicleap'}));
+  } else if (pathname === '/version') {
+    return await _serveVersion(await _getGithubState({platform: 'windows'}));
   } else { 
     const userAgent = request.headers.get('User-Agent');
     const match = userAgent.match(/\(.*?(win|mac|linux).*?\)/i);
