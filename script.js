@@ -15,7 +15,9 @@ const _getGithubState = async ({platform}) => {
     redirect: 'follow',
   });
   let releases = await proxyResponse.json();
-  releases = releases.sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at));
+  releases = releases
+    .filter(r => /^v[0-9]+\.[0-9]+\.[0-9]+$/.test(r))
+    .sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at));
 
   console.log('got releases', releases);
 
